@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meet Today?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden; /* Prevents scrollbars */
+        }
+        h1 {
+            text-align: center;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .no {
+            background-color: #f44336;
+            color: white;
+        }
+        .emoji {
+            font-size: 50px;
+            position: absolute;
+            top: -50px; /* Start above the viewport */
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh); /* Move to bottom of the viewport */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Heyy Isha</h1>
+    <p>Can we meet today?</p>
+    <div class="buttons">
+        <button class="button yes" onclick="startFallingEmojis('yes')">Yes</button>
+        <button class="button no" onclick="startFallingEmojis('no')">No</button>
+    </div>
+
+    <script>
+        function startFallingEmojis(answer) {
+            clearInterval(window.emojiInterval); // Clear any existing interval
+
+            if (answer === 'yes') {
+                window.emojiInterval = setInterval(() => {
+                    const emoji = document.createElement('div');
+                    emoji.innerText = Math.random() > 0.5 ? '🎉' : '😊'; // Randomly choose between hurray and smile
+                    emoji.classList.add('emoji');
+                    emoji.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+                    document.body.appendChild(emoji);
+
+                    // Remove the emoji after it has fallen
+                    setTimeout(() => {
+                        emoji.remove();
+                    }, 3000); // Match this duration with animation time
+                }, 500); // New emoji falls every 500ms
+            } else {
+                window.emojiInterval = setInterval(() => {
+                    const emoji = document.createElement('div');
+                    emoji.innerText = '😢'; // Sad emoji
+                    emoji.classList.add('emoji');
+                    emoji.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+                    document.body.appendChild(emoji);
+
+                    // Remove the emoji after it has fallen
+                    setTimeout(() => {
+                        emoji.remove();
+                    }, 3000); // Match this duration with animation time
+                }, 500); // New emoji falls every 500ms
+            }
+        }
+    </script>
+</body>
+</html>
